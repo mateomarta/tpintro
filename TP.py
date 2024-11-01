@@ -111,22 +111,18 @@ def cotizacion(LiVa,LiEm,cont,LiPa):
     print(LiPa[cont])
             
 
+    def poliza(LiDni, LiMod, LiVa, LiPa, LiEm):
+    print("")
+    print("")
+    print("==========================================================================")
+    print("***POLIZA***")
+    print("==========================================================================")
+    print("\tDNI        MODELO                              VALOR VEHICULO    PAGO MENSUAL    EMPRESA")
     
-        
+    for i in range(len(LiDni)):
+        print("\t%-10d %-35s $%14.2f $%13.2f %10s" % (LiDni[i], LiMod[i], LiVa[i], LiPa[i], LiEm[i]))
     
-    
-    
- 
-    
-    
-    
-        
-        
-        
-        
-        
-        
-           
+               
 def busqueda (lista,valor):
     pos = -1
     i = 0
@@ -142,10 +138,9 @@ def busqueda (lista,valor):
 def main():
     
     dni=[]
-    motos=["moto: Harley-Davidson Road Glide Special", "Ducati Panigale V4", "BMW R 1250 GS ", "Kawasaki Ninja ZX-10R", "Yamaha MT-07", "Honda CRF450R"]
-    autos=["Toyota Corolla", "Honda Civic", "Ford Mustang", "Chevrolet Silverado", "Tesla Model 3", "BMW Serie 3"]
-    camion=["Scania R Series", "Mercedes-Benz Actros", "Volvo FH16", "MAN TGX", "Freightliner Cascadia", "DAF XF"]
-    modelo=[]
+    motos=["moto: Harley-Davidson Road Glide Special", "moto: Ducati Panigale V4", "moto: BMW R 1250 GS ", "moto: Kawasaki Ninja ZX-10R", "moto: Yamaha MT-07", "moto: Honda CRF450R"]
+    autos=["auto: Toyota Corolla", "auto: Honda Civic", "auto: Ford Mustang", "auto: Chevrolet Silverado", "auto: Tesla Model 3", "auto: BMW Serie 3"]
+    camion=["camion: Scania R Series", "camion: Mercedes-Benz Actros", "camion: Volvo FH16", "camion: MAN TGX", "camion: Freightliner Cascadia", "camion: DAF XF"]
     valorVehiculo=[]
     empresas=[]
     nrocli=0
@@ -161,6 +156,7 @@ def main():
             ingresoCliente(dni,nrocli,motos,autos,camion,modelo,valorVehiculo)
             cotizacion(valorVehiculo,empresas,nrocli,pagoxmes)
             nrocli+=1
+            poliza(dni,modelo,valorVehiculo,pagoxmes,empresas)
         opcion=validarRango(1,3, "Por favor, ingrese 1 para cargar datos de clientes, 2 para ver listas o 3 para generar informe y salir: ")
             
 
