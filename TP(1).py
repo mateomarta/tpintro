@@ -55,62 +55,62 @@ def ingresoCliente(LiDNI,cont,LiMo,LiAu,LiCa,LiMod,LiVa):
 #carga lista dni, modelo y el precio
 
 def cotizacion(LiVa,LiEm,cont,LiPa):
-    auxval=LiVa[cont]*0.005
+    auxval=LiVa[cont]*0.001
     #Elegir tipo de seguro
     opcion=validarRango(1,3, "Ingrese 1 si el tipo de seguro es contra tercero, 2 contra tercero completo y 3 para todo riesgo")
     #En base al tipo de seguro se imprime el coste que tendria segun cada empresa
     #El primer if representa el tipo de seguro, el segundo if la empresa
     if opcion == 1:
-        calculo=auxval*1.005
+        auxval = auxval * 5
         print("cotizacion: contra tercero")
         print("")
-        print("->empresa 1: $",round(calculo*1.008,0))
-        print("->empresa 2: $",round(calculo*1.014,0))
-        print("->empresa 3: $",round(calculo*1.011,0))
+        print("->empresa 1: $",round(auxval*1,0))
+        print("->empresa 2: $",round(auxval*1.25,0))
+        print("->empresa 3: $",round(auxval*1.5,0))
         opcionem=validarRango(1,3, "elija tipo de empresa (1,2,3): ")
         if opcionem == 1:
-            pagomen=round(calculo*1.08,0)
+            pagomen=round(auxval*1,0)
         elif opcionem == 2:
-            pagomen=round(calculo*1.14,0)
+            pagomen=round(auxval*1.25,0)
         else:
-            pagomen=round(calculo*1.11,0)
+            pagomen=round(auxval*1.5,0)
     elif opcion == 2:
-        calculo=auxval*1.010
+        auxval = auxval * 7
         print("cotizacion: contra tercero completo")
         print("")
-        print("->empresa 1: $",round(calculo*1.022,0))
-        print("->empresa 2: $",round(calculo*1.017,0))
-        print("->empresa 3: $",round(calculo*1.020,0))
+        print("->empresa 1: $",round(auxval*1.5,0))
+        print("->empresa 2: $",round(auxval*1,0))
+        print("->empresa 3: $",round(auxval*1.25,0))
         print("")
         opcionem=validarRango(1,3, "elija tipo de empresa (1,2,3): ")
         if opcionem == 1:
-            pagomen=round(calculo*1.22,0)
+            pagomen=round(auxval*1.5,0)
         elif opcionem == 2:
-            pagomen=round(calculo*1.17,0)
+            pagomen=round(auxval*1,0)
         else:
-            pagomen=round(calculo*1.10,0)
+            pagomen=round(auxval*1.25,0)
     else:
-        calculo=auxval*1.020
+        auxval = auxval * 13
         print("cotizacion: todo riesgo")
         print("")
-        print("->empresa 1: $",round(calculo*1.024,0))
-        print("->empresa 2: $",round(calculo*1.027,0))
-        print("->empresa 3: $",round(calculo*1.033,0))
+        print("->empresa 1: $",round(auxval*1.25,0))
+        print("->empresa 2: $",round(auxval*1.5,0))
+        print("->empresa 3: $",round(auxval*1,0))
         print("")
         opcionem=validarRango(1,3, "elija tipo de empresa (1,2,3): ")
         if opcionem == 1:
-            pagomen=round(calculo*1.24,0)
+            pagomen=round(auxval*1.25,0)
         elif opcionem == 2:
-            pagomen=round(calculo*1.27,0)
+            pagomen=round(auxval*1.5,0)
         else:
-            pagomen=round(calculo*1.33,0)
+            pagomen=round(auxval*1,0)
     #Una vez elegida una opcion, se guarda la empresa y el pago por mes en las listas
     LiEm.append(opcionem)
     LiPa.append(pagomen)
     #PROVICIONAL: se imprime el valor recien cargado para verificar
     print(LiEm[cont])
     print(LiPa[cont])
-
+    
 ##############################################
 def main():
     #Preinicializacion de listas:
