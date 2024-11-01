@@ -153,6 +153,7 @@ def main():
             cotizacion(valorVehiculo,empresas,nrocli,pagoxmes)
             #Luego de completar la carga incrementa el contador de posicion
             nrocli+=1
+            poliza(dni,modelo,valorVehiculo,pagoxmes,empresa)
         #Finalizacion del ciclo while, nuevamente condicion de finalizacion
         opcion=validarRango(1,3, "Por favor, ingrese 1 para cargar datos de clientes, 2 para ver listas o 3 para generar informe y salir: ")    
 
