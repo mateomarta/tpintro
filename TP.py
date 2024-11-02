@@ -63,7 +63,7 @@ def ingresoCliente(LiDNI,cont,LiMo,LiAu,LiCa,LiMod,LiVa):
 #carga lista dni, modelo y el precio
 
 #######
-def cotizacion(LiVa,LiEm,cont,LiPa,cont1,cont2,cont3):
+def cotizacion(LiVa,LiEm,cont,LiPa,cont1, cont2, cont3):
     auxval=LiVa[cont]*0.001
     #Elegir tipo de seguro
     opcion=validarRango(1,3, "Ingrese 1 si el tipo de seguro es contra tercero, 2 contra tercero completo y 3 para todo riesgo: ")
@@ -114,10 +114,13 @@ def cotizacion(LiVa,LiEm,cont,LiPa,cont1,cont2,cont3):
         print("")
         opcionem=validarRango(1,3, "Elija caul empresa (1,2,3): ")
         if opcionem == 1:
+            cont1+=1
             pagomen=round(auxval*1.25,0)
         elif opcionem == 2:
+            cont2+=1
             pagomen=round(auxval*1.5,0)
         else:
+            cont3+=1
             pagomen=round(auxval*1,0)
     #Una vez elegida una opcion, se guarda la empresa y el pago por mes en las listas
     LiEm.append(opcionem)
@@ -166,7 +169,10 @@ def main():
     ##########################################
     #Contadores
     nrocli=0
-    #Mensaje de vienvenida del programa
+    cont1=0
+    cont2=0
+    cont3=0
+    #Mensaje de bienvenida del programa
     ingresoProductor()
     #While principal
     #Condicion de finalizacion del while main -> variable opcion
@@ -175,7 +181,7 @@ def main():
     while opcion != 3:
         if opcion == 1:
             ingresoCliente(dni,nrocli,motos,autos,camion,modelo,valorVehiculo)
-            cotizacion(valorVehiculo,empresas,nrocli,pagoxmes)
+            emp1, emp2, emp3 =cotizacion(valorVehiculo,empresas,nrocli,pagoxmes,cont1,cont2,cont3)
             #Luego de completar la carga incrementa el contador de posicion
             nrocli+=1
             poliza(dni,modelo,valorVehiculo,pagoxmes,empresas)
@@ -205,9 +211,9 @@ def main():
         print("")
         print("la cantidad de clientes registrados en esta sesion: ",nrocli)
         print("cantidad de clientes por empresa......")
-        print("empresa 1: ")
-        print("empresa 2: ")
-        print("empresa 3: ")
+        print("empresa 1: " ,cont1)
+        print("empresa 2: " ,cont2)
+        print("empresa 3: ", cont3)
         
 if __name__ == "__main__":
     main()
