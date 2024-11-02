@@ -17,6 +17,44 @@ def busqueda (lista,valor):
         i+=1
     return pos
 
+def burbujeo(lista1,lista2,lista3,lista4,lista5):
+    for i in range(0, len(lista1)-1):
+        for j in range(0, len(lista1)-1-i):
+            
+            if (lista1[j] < lista1[j+1]):
+                aux = lista1[j]
+                lista1[j] = lista1[j+1]
+                lista1[j+1] = aux
+                
+                aux = lista2[j]
+                lista2[j] = lista2[j+1]
+                lista2[j+1] = aux
+                
+                aux = lista3[j]
+                lista3[j] = lista3[j+1]
+                lista3[j+1] = aux
+                
+                aux = lista4[j]
+                lista4[j] = lista4[j+1]
+                lista4[j+1] = aux
+                
+                aux = lista5[j]
+                lista5[j] = lista5[j+1]
+                lista5[j+1] = aux
+
+def sumaLista(lista):
+    suma = 0
+    for i in range (len(lista)):
+        suma = suma + lista[i]
+    return suma
+
+def maximo(lista):
+    for i in range(len(lista)):
+        if (i==0) or (lista[i]>valMaximo):
+            valMaximo=lista[i]
+            imax=i
+    return imax
+
 ##############################################
 def ingresoProductor(): #falta presentacion
     print("*** PROGRAMA SEGUROS AUDE ***")
@@ -63,7 +101,7 @@ def ingresoCliente(LiDNI,cont,LiMo,LiAu,LiCa,LiMod,LiVa):
 #carga lista dni, modelo y el precio
 
 #######
-def cotizacion(LiVa,LiEm,cont,LiPa,cont1, cont2, cont3):
+def cotizacion(LiVa,LiEm,cont,LiPa):
     auxval=LiVa[cont]*0.001
     #Elegir tipo de seguro
     opcion=validarRango(1,3, "Ingrese 1 si el tipo de seguro es contra tercero, 2 contra tercero completo y 3 para todo riesgo: ")
@@ -78,13 +116,10 @@ def cotizacion(LiVa,LiEm,cont,LiPa,cont1, cont2, cont3):
         print("->empresa 3: $",round(auxval*1.5,0))
         opcionem=validarRango(1,3, "Elija cual empresa (1,2,3): ")
         if opcionem == 1:
-            cont1 += 1
             pagomen=round(auxval*1,0)
         elif opcionem == 2:
-            cont2 += 1
             pagomen=round(auxval*1.25,0)
         else:
-            cont3 += 1
             pagomen=round(auxval*1.5,0)
     elif opcion == 2:
         auxval = auxval * 7
@@ -96,13 +131,10 @@ def cotizacion(LiVa,LiEm,cont,LiPa,cont1, cont2, cont3):
         print("")
         opcionem=validarRango(1,3, "Elija cual empresa (1,2,3): ")
         if opcionem == 1:
-            cont1 += 1
             pagomen=round(auxval*1.5,0)
         elif opcionem == 2:
-            cont2 += 1
             pagomen=round(auxval*1,0)
         else:
-            cont3 += 1
             pagomen=round(auxval*1.25,0)
     else:
         auxval = auxval * 13
@@ -112,20 +144,16 @@ def cotizacion(LiVa,LiEm,cont,LiPa,cont1, cont2, cont3):
         print("->empresa 2: $",round(auxval*1.5,0))
         print("->empresa 3: $",round(auxval*1,0))
         print("")
-        opcionem=validarRango(1,3, "Elija caul empresa (1,2,3): ")
+        opcionem=validarRango(1,3, "Elija cual empresa (1,2,3): ")
         if opcionem == 1:
-            cont1+=1
             pagomen=round(auxval*1.25,0)
         elif opcionem == 2:
-            cont2+=1
             pagomen=round(auxval*1.5,0)
         else:
-            cont3+=1
             pagomen=round(auxval*1,0)
     #Una vez elegida una opcion, se guarda la empresa y el pago por mes en las listas
     LiEm.append(opcionem)
     LiPa.append(pagomen)
-    return cont1,cont2,cont3
  
 ######
 def poliza(LiDni, LiMod, LiVa, LiPa, LiEm):
@@ -138,20 +166,6 @@ def poliza(LiDni, LiMod, LiVa, LiPa, LiEm):
     i=-1
     print("\t%-10d %-35s $%14.2f $%13.2f %10s" % (LiDni[i], LiMod[i], LiVa[i], LiPa[i], LiEm[i]))
 
-######
-def burbujeo(lista1,lista2):
-    for i in range(0, len(lista1)-1):
-        for j in range(0, len(lista1)-1-i):
-            
-            if (lista1[j] < lista1[j+1]):
-                aux = lista1[j]
-                lista1[j] = lista1[j+1]
-                lista1[j+1] = aux
-                
-                aux = lista2[j]
-                lista2[j] = lista2[j+1]
-                lista2[j+1] = aux
-    
 ##############################################
 def main():
     #Preinicializacion de listas:
@@ -181,7 +195,13 @@ def main():
     while opcion != 3:
         if opcion == 1:
             ingresoCliente(dni,nrocli,motos,autos,camion,modelo,valorVehiculo)
-            emp1, emp2, emp3 =cotizacion(valorVehiculo,empresas,nrocli,pagoxmes,cont1,cont2,cont3)
+            cotizacion(valorVehiculo,empresas,nrocli,pagoxmes)
+            if empresas[-1] == 1:
+                cont1+=1
+            elif empresas[-1] == 2:
+                cont2+=1
+            elif empresas[-1] == 3:
+                cont3+=1
             #Luego de completar la carga incrementa el contador de posicion
             nrocli+=1
             poliza(dni,modelo,valorVehiculo,pagoxmes,empresas)
@@ -189,7 +209,7 @@ def main():
         print("")
         
         if opcion == 2:
-            orden=burbujeo(empresas,valorVehiculo)
+            burbujeo(empresas,valorVehiculo,dni,modelo,pagoxmes)
             print("")
             print("==========================================================================")
             print("				***CLIENTES***				")
@@ -197,6 +217,18 @@ def main():
             print("\tDNI        MODELO               		VALOR VEHICULO      PAGO MENSUAL    EMPRESA")
             for i in range(len(dni)):
                 print("\t%-10d %-35s $%14.2f $%13.2f %10s" % (dni[i], modelo[i], valorVehiculo[i], pagoxmes[i], empresas[i]))
+            print("")
+            opcionBus=validarRango(1,2,"Ingrese 1 si desea buscar un cliente por DNI o 2 si desea continuar ")
+            while opcionBus != 2:
+                dniBus=validarRango(10000000,99999999,"Ingrese dni del cliente: ")
+                posi=busqueda(dni,dniBus)
+                if posi == -1:
+                    print("No se encontro un cliente con ese DNI")
+                else:
+                    print("\tDNI        MODELO               		VALOR VEHICULO      PAGO MENSUAL    EMPRESA")
+                    print("\t%-10d %-35s $%14.2f $%13.2f %10s" % (dni[posi], modelo[posi], valorVehiculo[posi], pagoxmes[posi], empresas[posi]))
+                print("")
+                opcionBus=validarRango(1,2,"Ingrese 1 si desea buscar otro cliente por DNI o 2 si desea continuar ")
         
         opcion=validarRango(1,3, "Por favor, ingrese 1 para cargar datos de clientes, 2 para ver listas o 3 para generar informe y salir: ")
         
@@ -205,15 +237,25 @@ def main():
     if nrocli == 0:
         print("no se cargaron clientes")
     else:
+        promedio=sumaLista(valorVehiculo)/len(valorVehiculo)
         print("==========================================================================")
         print("				***CLIENTES***				")
         print("==========================================================================")
         print("")
         print("la cantidad de clientes registrados en esta sesion: ",nrocli)
         print("cantidad de clientes por empresa......")
-        print("empresa 1: " ,cont1)
-        print("empresa 2: " ,cont2)
+        print("empresa 1: ",cont1)
+        print("empresa 2: ",cont2)
         print("empresa 3: ", cont3)
+        print("")
+        print("La ganancia del productor es: ", round(sumaLista(pagoxmes)*0.10,0))
+        print("")        
+        print("El valor promedio de los vehiculos es: $",round(promedio,0))
+        if (nrocli>1):
+            print("\tDNI        MODELO               		VALOR VEHICULO      PAGO MENSUAL    EMPRESA")
+            for i in range(len(dni)):
+                if valorVehiculo[i]<promedio:
+                    print("\t%-10d %-35s $%14.2f $%13.2f %10s" % (dni[i], modelo[i], valorVehiculo[i], pagoxmes[i], empresas[i]))
         
 if __name__ == "__main__":
     main()
