@@ -210,25 +210,32 @@ def main():
         
         if opcion == 2:
             burbujeo(empresas,valorVehiculo,dni,modelo,pagoxmes)
-            print("")
-            print("==========================================================================")
-            print("				***CLIENTES***				")
-            print("==========================================================================")
-            print("\tDNI        MODELO               		VALOR VEHICULO      PAGO MENSUAL    EMPRESA")
-            for i in range(len(dni)):
-                print("\t%-10d %-35s $%14.2f $%13.2f %10s" % (dni[i], modelo[i], valorVehiculo[i], pagoxmes[i], empresas[i]))
-            print("")
-            opcionBus=validarRango(1,2,"Ingrese 1 si desea buscar un cliente por DNI o 2 si desea continuar ")
-            while opcionBus != 2:
-                dniBus=validarRango(10000000,99999999,"Ingrese dni del cliente: ")
-                posi=busqueda(dni,dniBus)
-                if posi == -1:
-                    print("No se encontro un cliente con ese DNI")
-                else:
-                    print("\tDNI        MODELO               		VALOR VEHICULO      PAGO MENSUAL    EMPRESA")
-                    print("\t%-10d %-35s $%14.2f $%13.2f %10s" % (dni[posi], modelo[posi], valorVehiculo[posi], pagoxmes[posi], empresas[posi]))
+            if len(dni) > 0:
                 print("")
-                opcionBus=validarRango(1,2,"Ingrese 1 si desea buscar otro cliente por DNI o 2 si desea continuar ")
+                print("==========================================================================")
+                print("				***CLIENTES***				")
+                print("==========================================================================")
+                print("\tDNI        MODELO               		VALOR VEHICULO      PAGO MENSUAL    EMPRESA")
+                for i in range(len(dni)):
+                    print("\t%-10d %-35s $%14.2f $%13.2f %10s" % (dni[i], modelo[i], valorVehiculo[i], pagoxmes[i], empresas[i]))
+                print("")
+                opcionBus=validarRango(1,2,"Ingrese 1 si desea buscar un cliente por DNI o 2 si desea continuar ")
+                while opcionBus != 2:
+                    dniBus=validarRango(10000000,99999999,"Ingrese dni del cliente: ")
+                    posi=busqueda(dni,dniBus)
+                    if posi == -1:
+                        print("No se encontro un cliente con ese DNI")
+                    else:
+                        print("\tDNI        MODELO               		VALOR VEHICULO      PAGO MENSUAL    EMPRESA")
+                        print("\t%-10d %-35s $%14.2f $%13.2f %10s" % (dni[posi], modelo[posi], valorVehiculo[posi], pagoxmes[posi], empresas[posi]))
+                    print("")
+                    opcionBus=validarRango(1,2,"Ingrese 1 si desea buscar otro cliente por DNI o 2 si desea continuar ")
+            else:
+                print("____________________________________")
+                print("***no se ingreso ningun cliente***")
+                print("____________________________________")
+                print("")
+                
         
         
         opcion=validarRango(1,3, "Por favor, ingrese 1 para cargar datos de clientes, 2 para ver listas o 3 para generar informe y salir: ")
